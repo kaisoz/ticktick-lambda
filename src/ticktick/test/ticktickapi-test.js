@@ -3,7 +3,7 @@ var assert = require('chai').assert;
 var sinon = require('sinon');
 var rewire = require('rewire');
 
-var TickTask = rewire('../ticktask');
+var TickTask = require('../ticktask');
 var TickTickApi = rewire('../ticktickapi');
 
 describe('login', () => {
@@ -29,7 +29,7 @@ describe('login', () => {
             await ticktick.login();
         }catch(err){
             exceptionThrown = true;
-            expect(err).to.be.equal("Could not login");
+            expect(err).to.be.equal("Error logging in to TickTick");
         }
 
         if(!exceptionThrown){
@@ -45,7 +45,7 @@ describe('login', () => {
             await ticktick.login();
         }catch(err){
             exceptionThrown = true;
-            expect(err).to.be.equal("Invalid response");
+            expect(err).to.be.equal("Invalid login response received");
         }
 
         if(!exceptionThrown){
@@ -61,7 +61,7 @@ describe('login', () => {
             await ticktick.login();
         }catch(err){
             exceptionThrown = true;
-            expect(err).to.be.equal("Invalid response");
+            expect(err).to.be.equal("Invalid login response received");
         }
 
         if(!exceptionThrown){
@@ -104,7 +104,7 @@ describe('add task', () => {
             await ticktick.addTask(task);
         }catch(err){
             exceptionThrown = true;
-            expect(err).to.be.equal("Error adding a task");
+            expect(err).to.be.equal("Error adding task");
         }
 
         if(!exceptionThrown){

@@ -53,14 +53,17 @@ class TickTickApi
         );
 
         try{
+            console.log("* Logging in to TickTick...")
             response = await do_async_request(request_data);
         }catch(error){
-            throw "Could not login";
+            throw "Error logging in to TickTick";
         }
         
         if(!response || response.username !== this.user){
-            throw "Invalid response";
+            throw "Invalid login response received";
         }
+
+        console.log("* Login successful")
     }
 
     async addTask(task)
@@ -71,8 +74,9 @@ class TickTickApi
 
         try{
             response = await do_async_request(request_data);
+            console.log("* Added task '" + task.title + "'")
         }catch(error){
-            throw "Error adding a task";
+            throw "Error adding task";
         }
     }
 }
