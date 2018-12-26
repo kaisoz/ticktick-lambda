@@ -28,6 +28,7 @@ class TickTickApi
     {
         this.user = user;
         this.pass = pass;
+        this.isLogged = false;
         this.base_url = "https://ticktick.com";
         this.base_api = this.base_url + "/api/v2";
         this.base_data = {
@@ -40,9 +41,17 @@ class TickTickApi
         };
     }
 
+    isLogged() {
+        return this.isLogged;
+    }
 
     async login() 
     {
+        if(this.isLogged){
+            console.log("* Already logged");
+            return;
+        }
+
         let response = null;
         let url = this.base_api + "/user/signon?wc=true&remember=true";
         let request_data = build_request_data(url, this.base_data, 
@@ -53,7 +62,7 @@ class TickTickApi
         );
 
         try{
-            console.log("* Logging in to TickTick...")
+            console.log("* Logging in to TickTick...");
             response = await do_async_request(request_data);
         }catch(error){
             throw "Error logging in to TickTick";
@@ -63,7 +72,8 @@ class TickTickApi
             throw "Invalid login response received";
         }
 
-        console.log("* Login successful")
+        this.isLogged = true;
+        console.log("* Login successful");
     }
 
     async addTask(task)
@@ -74,7 +84,7 @@ class TickTickApi
 
         try{
             response = await do_async_request(request_data);
-            console.log("* Added task '" + task.title + "'")
+            console.log("* Added task '" + task.title + "'");
         }catch(error){
             throw "Error adding task";
         }

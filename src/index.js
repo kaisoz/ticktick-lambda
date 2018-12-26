@@ -1,6 +1,8 @@
 var TickTask = require('ticktick/ticktask');
 var TickTickApi = require('ticktick/ticktickapi');
 
+var ticktick = new TickTickApi(process.env.USER, process.env.PASSWORD);
+
 exports.handler = async (event) => {
 
     let code = 200;
@@ -8,9 +10,11 @@ exports.handler = async (event) => {
 
     try{
         let task = new TickTask(event);
-        let ticktick = new TickTickApi(process.env.USER, process.env.PASSWORD);
 
-        await ticktick.login();
+        if(!ticktick.isLogged()){
+            await ticktick.login();
+        }
+
         await ticktick.addTask(task);
         msg="Added task '" + task.title + "'";
     }catch(error){

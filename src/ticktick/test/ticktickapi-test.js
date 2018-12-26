@@ -21,6 +21,14 @@ describe('login', () => {
         await ticktick.login();
     });
 
+    it('should not login if already logged', async () => {
+        do_async_request_stub.returns(Promise.resolve({username: "user"}));
+        let ticktick = new TickTickApi("user", "pass");
+        await ticktick.login();
+        await ticktick.login();
+        expect(do_async_request_stub.callCount).to.be.equal(1);
+    });
+
     it('should throw and exception if login fails', async () => {
         let exceptionThrown = false;
         do_async_request_stub.returns(Promise.reject());
