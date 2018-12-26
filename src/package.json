@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "bson-objectid": "^1.2.4",
+    "moment": "^2.23.0",
     "request": "^2.88.0"
   }
 }
