@@ -28,7 +28,7 @@ class TickTickApi
     {
         this.user = user;
         this.pass = pass;
-        this.isLogged = false;
+        this.logged = false;
         this.base_url = "https://ticktick.com";
         this.base_api = this.base_url + "/api/v2";
         this.base_data = {
@@ -42,12 +42,12 @@ class TickTickApi
     }
 
     isLogged() {
-        return this.isLogged;
+        return this.logged;
     }
 
     async login() 
     {
-        if(this.isLogged){
+        if(this.logged){
             console.log("* Already logged");
             return;
         }
@@ -72,7 +72,7 @@ class TickTickApi
             throw "Invalid login response received";
         }
 
-        this.isLogged = true;
+        this.logged = true;
         console.log("* Login successful");
     }
 
